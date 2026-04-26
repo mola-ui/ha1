@@ -148,7 +148,7 @@ void testClearState() {
 
 @Test
     @DisplayName("should display Error when dividing by zero")
-    void testDivisionByZero() {
+    void testDivisionBy0() {
         Calculator calc = new Calculator();
 
         calc.pressDigitKey(8);
