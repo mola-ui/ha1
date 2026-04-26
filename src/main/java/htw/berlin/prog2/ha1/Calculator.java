@@ -117,6 +117,20 @@ public class Calculator {
      * Operation (ggf. inklusive letztem Operand) erneut auf den aktuellen Bildschirminhalt angewandt
      * und das Ergebnis direkt angezeigt.
      */
+
+
+    /**
+     * Neuer JavaDoc
+     * Empfängt den Befehl der gedrückten "="-Taste.
+     * Wurde zuvor keine Operationstaste gedrückt, passiert nichts.
+     * Wurde zuvor eine binäre Operationstaste gedrückt und zwei Operanden eingegeben, wird das
+     * Ergebnis der Operation angezeigt. **Falls hierbei eine Division durch Null auftritt 
+     * oder das Ergebnis mathematisch nicht definiert ist (unendlich), wird "Error" angezeigt.**
+     * Wird die Taste weitere Male gedrückt (ohne andere Tasten dazwischen), so wird die letzte
+     * Operation (ggf. inklusive letztem Operand) erneut auf den aktuellen Bildschirminhalt angewandt
+     * und das Ergebnis direkt angezeigt.
+     */
+
     public void pressEqualsKey() {
         var result = switch(latestOperation) {
             case "+" -> latestValue + Double.parseDouble(screen);
