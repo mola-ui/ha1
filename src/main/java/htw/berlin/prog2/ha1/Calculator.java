@@ -131,25 +131,46 @@ public class Calculator {
      * und das Ergebnis direkt angezeigt.
      */
 
+    
     public void pressEqualsKey() {
-        var result = switch(latestOperation) {
-            case "+" -> latestValue + Double.parseDouble(screen);
-            case "-" -> latestValue - Double.parseDouble(screen);
-            case "x" -> latestValue * Double.parseDouble(screen);
-            case "/" -> latestValue / Double.parseDouble(screen);
-            default -> throw new IllegalArgumentException();
-        };
-        
-
-        if (latestOperation.equals("/") && screen.equals("0")) {
-        screen = "Error";
-    } else if (Double.isInfinite(result) || Double.isNaN(result)) {
-        screen = "Error";
-    } else {
-        screen = Double.toString(result);
-        if(screen.endsWith(".0")) screen = screen.substring(0,screen.length()-2);
-        if(screen.contains(".") && screen.length() > 11) screen = screen.substring(0, 10);
+    // Falls keine Operation gesetzt ist (z.B. am Anfang), 
+    // darf keine Exception fliegen. Wir brechen einfach ab.
+    if (latestOperation.isEmpty()) {
+        return;
     }
+
+    double secondValue = Double.parseDouble(screen);
+    double result;
+
+    switch (latestOperation) {
+        case "+" -> result = latestValue + secondValue;
+        case "-" -> result = latestValue - secondValue;
+        case "x" -> result = latestValue * secondValue;
+        case "/" -> {
+            if (secondValue == 0) {
+                screen = "Error";
+                return;
+            }
+            result = latestValue / secondValue;
+        }
+        default -> throw new IllegalArgumentException();
+    }
+
+    // Ergebnis in Screen schreiben
+    screen = Double.toString(result);
+
+    // Formatierung (wie in deinem Screenshot)
+    if (screen.equals("Infinity") || screen.equals("NaN")) screen = "Error";
+    
+    if (screen.endsWith(".0")) {
+        screen = screen.substring(0, screen.length() - 2);
+    }
+    
+    if (screen.contains(".") && screen.length() > 11) {
+        screen = screen.substring(0, 11);
+    }
+}
+       
 
 
     }
