@@ -133,14 +133,14 @@ public class Calculator {
 
     
     public void pressEqualsKey() {
-    // Falls keine Operation gesetzt ist (z.B. am Anfang), 
-    // darf keine Exception fliegen. Wir brechen einfach ab.
-    if (latestOperation.isEmpty()) {
+    // Falls noch gar keine Operation gewählt wurde, tun wir nichts
+    if (latestOperation == null || latestOperation.isEmpty()) {
         return;
     }
 
+    // Hier wird die Variable erstellt, die dir aktuell fehlt:
     double secondValue = Double.parseDouble(screen);
-    double result;
+    double result = 0;
 
     switch (latestOperation) {
         case "+" -> result = latestValue + secondValue;
@@ -149,23 +149,27 @@ public class Calculator {
         case "/" -> {
             if (secondValue == 0) {
                 screen = "Error";
-                return;
+                return; // Beendet die Methode sofort
             }
             result = latestValue / secondValue;
         }
         default -> throw new IllegalArgumentException();
     }
 
-    // Ergebnis in Screen schreiben
+    // Ergebnis in String umwandeln
     screen = Double.toString(result);
 
-    // Formatierung (wie in deinem Screenshot)
-    if (screen.equals("Infinity") || screen.equals("NaN")) screen = "Error";
+    // Formatierung für die Tests
+    if (screen.equals("Infinity") || screen.equals("NaN")) {
+        screen = "Error";
+    }
     
+    // Entfernt das .0 bei Ganzzahlen (wichtig für die Tests!)
     if (screen.endsWith(".0")) {
         screen = screen.substring(0, screen.length() - 2);
     }
     
+    // Kürzt zu lange Zahlen (Überlaufschutz)
     if (screen.contains(".") && screen.length() > 11) {
         screen = screen.substring(0, 11);
     }
