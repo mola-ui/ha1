@@ -144,20 +144,22 @@ void testClearState() {
     // Dieser Test wird ROT, weil dein Rechner "15" statt "5" liefert.
 }
 
-    
 
 
-    @Test
-    @DisplayName()
-    void testNegativeAddition(){
+@Test
+    @DisplayName("should display Error when dividing by zero")
+    void testDivisionByZero() {
         Calculator calc = new Calculator();
 
-        String expected = "-4";
-        String actual   = calc.readScreen();
+        calc.pressDigitKey(8);
+        calc.pressBinaryOperationKey("/");
+        calc.pressDigitKey(0);
+        calc.pressEqualsKey();
+
+        String expected = "Error";
+        String actual = calc.readScreen();
 
         assertEquals(expected, actual);
-
-
     }
 
 
