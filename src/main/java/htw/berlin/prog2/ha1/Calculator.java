@@ -125,9 +125,18 @@ public class Calculator {
             case "/" -> latestValue / Double.parseDouble(screen);
             default -> throw new IllegalArgumentException();
         };
+        
+
+        if (latestOperation.equals("/") && screen.equals("0")) {
+        screen = "Error";
+    } else if (Double.isInfinite(result) || Double.isNaN(result)) {
+        screen = "Error";
+    } else {
         screen = Double.toString(result);
-        if(screen.equals("Infinity")) screen = "Error";
         if(screen.endsWith(".0")) screen = screen.substring(0,screen.length()-2);
         if(screen.contains(".") && screen.length() > 11) screen = screen.substring(0, 10);
+    }
+
+
     }
 }
