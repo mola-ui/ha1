@@ -92,6 +92,9 @@ class CalculatorTest {
     //TODO hier weitere Tests erstellen
 
 
+    // Teilaufgabe 2
+
+
     @Test
     @DisplayName("should display result after adding two negative numbers")
     void testNegativeAddition(){
@@ -110,6 +113,54 @@ class CalculatorTest {
 
 
     }
+
+    
+    //Teilaufgabe 2
+
+
+
+@Test
+@DisplayName("should clear the internal state after pressing clear")
+void testClearState() {
+    Calculator calc = new Calculator();
+
+    // Erste Rechnung
+    calc.pressDigitKey(5);
+    calc.pressBinaryOperationKey("+");
+    calc.pressDigitKey(5);
+    calc.pressEqualsKey(); // Ergebnis ist 10
+
+    // Rechner löschen
+    calc.pressClearKey(); // Hier liegt vermutlich der Fehler
+
+    // Neue Rechnung
+    calc.pressDigitKey(5);
+    calc.pressBinaryOperationKey("+");
+
+    String expected = "5"; 
+    String actual = calc.readScreen();
+
+    assertEquals(expected, actual); 
+    // Dieser Test wird ROT, weil dein Rechner "15" statt "5" liefert.
+}
+
+    
+
+
+    @Test
+    @DisplayName()
+    void testNegativeAddition(){
+        Calculator calc = new Calculator();
+
+        String expected = "-4";
+        String actual   = calc.readScreen();
+
+        assertEquals(expected, actual);
+
+
+    }
+
+
 
 
 }
